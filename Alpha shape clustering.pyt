@@ -125,9 +125,9 @@ class ClusteringSettlementSystem(object):
             # 9. Рассчитайте количество точек в текущем кластере и запишите его в поле Count текущего полигона.
             out_tab = 'in_memory/output_table'
             # инструмент статистики для подсчёта количества точек
-            arcpy.TabulateIntersection_analysis(output_polygons_lyr, 'OBJECTID', input_points, out_tab , '', '', '', '')
+            arcpy.TabulateIntersection_analysis(output_polygons_lyr, 'FID', input_points, out_tab , '', '', '', '')
             # присоединение поля
-            arcpy.JoinField_management(output_polygons_lyr, 'OBJECTID', out_tab, 'OBJECTID', 'PNT_COUNT')
+            arcpy.JoinField_management(output_polygons_lyr, 'FID', out_tab, 'FID', 'PNT_COUNT')
 
             # 10. Добавляем текущий полигон в выходной полигональный класс (1).
             arcpy.Append_management(output_polygons_lyr, output_polygons, "NO_TEST")
@@ -249,3 +249,4 @@ class ClusteringQualityCriterion(object):
         arcpy.AddMessage("Ratio {}".format(intra_result / inter_result))
 
         return
+
